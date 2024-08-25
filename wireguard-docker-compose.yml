@@ -1,10 +1,10 @@
 services:
   wireguard:
-    image: linuxserver/wireguard
+    image: lscr.io/linuxserver/wireguard:latest
     container_name: wireguard
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
+      - SYS_MODULE #optional
     environment:
       - PUID=1000
       - PGID=1000
@@ -12,11 +12,12 @@ services:
       - SERVERURL=auto #optional
       - SERVERPORT=51820 #optional
       - PEERS=3 #optional
-      - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
+      - PERSISTENTKEEPALIVE_PEERS= #optional
+      - LOG_CONFS=true #optional
     volumes:
       - /opt/wireguard-server/config:/config
-      - /lib/modules:/lib/modules
+      - /lib/modules:/lib/modules #optional
     ports:
       - 51820:51820/udp
     sysctls:
